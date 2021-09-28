@@ -6,6 +6,7 @@ const config = require('./config.json')
 const fs = require('fs');
 
 const client = new Discord.Client();
+console.log('new instance')
 
 client.commands = new Discord.Collection();
 
@@ -49,7 +50,7 @@ client.on('message', message => {
         quote = (Object.values(obj))
         message.channel.send(quote[0])
       })
-      
+
     } else if (command === "reminder") {
       message.channel.send(reminders[getRandomInt(reminders.length)])
 
@@ -70,6 +71,10 @@ client.on('message', message => {
 
     } else if (command === 'ping') {
       client.commands.get('ping').execute(message, args);
+    }
+
+    else if (command === 'trivia') {
+      client.commands.get('trivia').execute(message, args);
     }
 
 });
