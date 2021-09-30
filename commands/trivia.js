@@ -11,6 +11,19 @@ module.exports = {
             .then(res => res.json())
               .then(json => {
                 // create the embed message
+                  //randomize order of questions in embed message
+                  let answers = [json.results[0].correct_answer, ...json.results[0].incorrect_answers];
+                  let randomAnswers = answers.sort(() => Math.random() - 0.5);
+                  let embed = new Discord.MessageEmbed()
+                    .setColor('#0099ff')
+                    .setTitle(json.results[0].question)
+                    .setDescription(randomAnswers.join('\n'))
+                    .addField('Type your answer!', '\u200b')
+                    .setFooter('Trivia question sent by ' + message.author.username, message.author.avatarURL());
+
+                  // send the embed message
+                  message.channel.send(embed);
+                  /*
                   const embed = new Discord.MessageEmbed()
                       .setColor('#0099ff')
                       .setTitle(json.results[0].question)
@@ -19,9 +32,10 @@ module.exports = {
                       .addField('Answer 2', json.results[0].incorrect_answers[0])
                       .addField('Answer 3', json.results[0].incorrect_answers[1])
                       .addField('Answer 4', json.results[0].incorrect_answers[2])
-                      .setFooter('Trivia question sent by ' + message.author.username, message.author.avatarURL());
+                      
                   // send the embed message
                   message.channel.send(embed);
+                  */
                   // let user react with their guess and collect the reaction
                   message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 30000, errors: ['time'] })
                       .then(collected => {
