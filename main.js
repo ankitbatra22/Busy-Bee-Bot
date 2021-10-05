@@ -63,7 +63,6 @@ client.on('message', message => {
     } else if (command === "subs" || command === "subscribers") {
       const channelId = 'UCz9F9eEkt2KcLXZt--M6vjA'
       ytch.getChannelInfo(channelId, 1).then((response) => {
-        console.log(response['subscriberText'])
         let subCount = response['subscriberText'];
         console.log(typeof subCount)
         message.channel.send(`Breanna currently has ${subCount} on YouTube!`)
