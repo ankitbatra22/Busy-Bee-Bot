@@ -53,8 +53,9 @@ client.on('message', message => {
 
     } else if (command === "reminder") {
       message.channel.send(reminders[getRandomInt(reminders.length)])
-
-    } else if (command === "selfcare") {
+    
+    
+    }else if (command === "selfcare") {
       message.channel.send(selfcare[getRandomInt(selfcare.length)])
 
     } else if(command === "help") {
@@ -64,17 +65,23 @@ client.on('message', message => {
       const channelId = 'UCz9F9eEkt2KcLXZt--M6vjA'
       ytch.getChannelInfo(channelId, 1).then((response) => {
         let subCount = response['subscriberText'];
-        console.log(typeof subCount)
+        //console.log(typeof subCount)
         message.channel.send(`Breanna currently has ${subCount} on YouTube!`)
       })
 
     } else if (command === 'ping') {
       client.commands.get('ping').execute(message, args);
-    }
-
+    } 
+    else if (command === 'test') {
+      message.channel.send("test")
+    } 
     else if (command === 'trivia') {
       client.commands.get('trivia').execute(message, args);
+    } 
+    else if (command === 'anime') {
+      client.commands.get('anime').execute(message, args);
     }
+
 
 });
 

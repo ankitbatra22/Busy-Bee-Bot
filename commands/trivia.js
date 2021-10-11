@@ -14,14 +14,15 @@ module.exports = {
                   //randomize order of questions in embed message
                   let answers = [json.results[0].correct_answer, ...json.results[0].incorrect_answers];
                   let randomAnswers = answers.sort(() => Math.random() - 0.5);
+                  let question = json.results[0].question.replace(/&quot;/g, '"');
+                  //let question = json.results[0].question;
                   let embed = new Discord.MessageEmbed()
                     .setColor('#0099ff')
-                    .setTitle(json.results[0].question)
+                    .setTitle(question)
                     .setDescription(randomAnswers.join('\n'))
                     .addField('Type your answer!', '\u200b')
                     .setFooter('Trivia question sent by ' + message.author.username, message.author.avatarURL());
 
-                  // send the embed message
                   message.channel.send(embed);
                   /*
                   const embed = new Discord.MessageEmbed()
@@ -36,7 +37,6 @@ module.exports = {
                   // send the embed message
                   message.channel.send(embed);
                   */
-                  // let user react with their guess and collect the reaction
                   message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 30000, errors: ['time'] })
                       .then(collected => {
                           // check if the user guessed correctly
