@@ -61,8 +61,8 @@ module.exports = {
                                             } else {
                                                 message.channel.send(new Discord.MessageEmbed()
                                                     .setColor('#0099ff')
-                                                    .setTitle('Incorrect!')
-                                                    .setDescription('The Correct Answer is: ', json.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'"))
+                                                    .setTitle('Incorrect! The correct answer was:')
+                                                    .setDescription(json.results[0].correct_answer)
                                                     .setFooter('Trivia question sent by ' + message.author.username, message.author.avatarURL()));
                                             }
                                         })
