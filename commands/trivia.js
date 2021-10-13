@@ -7,10 +7,9 @@ module.exports = {
     execute(message, args) {
         const embed = new Discord.MessageEmbed();
         embed.setColor('#0099ff');
-        embed.setTitle('Trivia');
-        embed.setDescription('Pick a Category!');
-        embed.addField('Categories', '`general`, `books`, `film`, `music`, `tv`, `video_games`, `board_games`, `science`, `computers`, `mathematics`, `mythology`, `sports`, `geography`, `history`, `politics`, `art`, `celebrities`, `animals`, `vehicles`, `comics`, `gadgets`, `anime`, `cartoon`, `geek`, `random`');
-        //embed.addField('Difficulties', '`easy`, `medium`, `hard`');
+        embed.setTitle('Busy Bee Trivia!');
+        embed.setDescription('Pick a Category');
+        embed.addField('Categories', '`general`, `books`, `film`, `music`, `tv`, `video_games`, `board_games`, `science`, `computers`, `mathematics`, `mythology`, `sports`, `geography`, `history`, `politics`, `art`, `celebrities`, `animals`, `vehicles`, `comics`, `gadgets`, `anime`, `cartoon`');
         message.channel.send(embed);
 
         const filter = m => m.author.id === message.author.id;
@@ -20,8 +19,8 @@ module.exports = {
                 if (category === 'general' || category === 'books' || category === 'film' || category === 'music' || category === 'tv' || category === 'video_games' || category === 'board_games' || category === 'science' || category === 'computers' || category === 'mathematics' || category === 'mythology' || category === 'sports' || category === 'geography' || category === 'history' || category === 'politics' || category === 'art' || category === 'celebrities' || category === 'animals' || category === 'vehicles' || category === 'comics' || category === 'gadgets' || category === 'anime' || category === 'cartoon' || category === 'geek' || category === 'random') {
                     const embed = new Discord.MessageEmbed();
                     embed.setColor('#0099ff');
-                    embed.setTitle('Busy Bee Trivia');
-                    embed.setDescription('Enter the difficulty to get a question from the Trivia API.');
+                    embed.setTitle('Busy Bee Trivia!');
+                    embed.setDescription('Pick a question difficulty');
                     embed.addField('Difficulties', '`easy`, `medium`, `hard`');
                     message.channel.send(embed);
                 
@@ -31,14 +30,14 @@ module.exports = {
                             console.log(difficulty);
                             if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard') {
 
-                                //console.log('HERE')
-                                arr = ['general', 'books', 'film', 'music', 'theatre', 'tv', 'video_games', 'board_games', 'science', 'computers', 'mathematics', 'mythology', 'sports', 'geography', 'history', 'politics', 'art', 'celebrities', 'animals', 'vehicles', 'comics', 'gadgets', 'anime', 'cartoon', 'geek', 'random'];
+                                arr = ['general', 'books', 'film', 'music', 'theatre', 'tv', 'video_games', 'board_games', 'science', 'computers', 'mathematics', 'mythology', 'sports', 'geography', 'history', 'politics', 'art', 'celebrities', 'animals', 'vehicles', 'comics', 'gadgets', 'anime', 'cartoon'];
                                 cat = arr.indexOf(category)+9;
 
                                 fetch('https://opentdb.com/api.php?amount=1&category=' + cat + '&difficulty=' + difficulty + '&type=multiple')
                                     .then(res => res.json())
                                     .then(json => {
-                                        let answers = [json.results[0].correct_answer, ...json.results[0].incorrect_answers].map(answer => answer.replace(/&quot;/g, '').replace(/&#039;/g, ''));
+                                        //const question = json.results[0].question.replace(/<\/?[^>]+(>|$)/g, "").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'");
+                                        let answers = [json.results[0].correct_answer, ...json.results[0].incorrect_answers].map(answer => answer.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'"));
                                         let randomAnswers = answers.sort(() => Math.random() - 0.5);
                                         let question = json.results[0].question.replace(/&#039;/g, "'").replace(/&quot;/g, '"');
                                         let embed = new Discord.MessageEmbed()
@@ -52,7 +51,7 @@ module.exports = {
 
                                         message.channel.awaitMessages(m => m.author.id === message.author.id, { max: 1, time: 30000, errors: ['time'] })
                                         .then(collected => {
-                                            // check if the user guessed correctly
+                                            // checking if the user guessed correctly
                                             if (collected.first().content.toLowerCase() === json.results[0].correct_answer.toLowerCase()) {
                                                 message.channel.send(new Discord.MessageEmbed()
                                                     .setColor('#0099ff')
@@ -63,7 +62,7 @@ module.exports = {
                                                 message.channel.send(new Discord.MessageEmbed()
                                                     .setColor('#0099ff')
                                                     .setTitle('Incorrect!')
-                                                    .setDescription(json.results[0].correct_answer)
+                                                    .setDescription('The Correct Answer is: ', json.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'"))
                                                     .setFooter('Trivia question sent by ' + message.author.username, message.author.avatarURL()));
                                             }
                                         })
@@ -72,7 +71,7 @@ module.exports = {
                                                 embed.setColor('#0099ff');
                                                 embed.setTitle('Trivia');
                                                 embed.setDescription('Incorrect!');
-                                                embed.addField('Answer', json.results[0].correct_answer);
+                                                embed.addField('Answer', json.results[0].correct_answer.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'"));
 
                                                 message.channel.send(embed);
                                             });
