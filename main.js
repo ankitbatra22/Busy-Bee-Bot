@@ -32,6 +32,16 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
+  if (message.content.includes('free discord nitro') || message.content.includes('discord nitro')) {
+    const embed = new Discord.MessageEmbed();
+                    embed.setColor('#0099ff');
+                    embed.setTitle('Spam Message Detected!');
+                    embed.setDescription('Pick a question difficulty');
+                    message.channel.send(embed);
+
+    message.channel.send('The previous message was detected as spam! Any links should be avoided as it may contain a virus');
+  }
+
   if(!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).split(" ");
@@ -65,15 +75,11 @@ client.on('message', message => {
       const channelId = 'UCz9F9eEkt2KcLXZt--M6vjA'
       ytch.getChannelInfo(channelId, 1).then((response) => {
         let subCount = response['subscriberText'];
-        //console.log(typeof subCount)
         message.channel.send(`Breanna currently has ${subCount} on YouTube!`)
       })
 
     } else if (command === 'ping') {
       client.commands.get('ping').execute(message, args);
-    } 
-    else if (command === 'test') {
-      message.channel.send("test")
     } 
     else if (command === 'trivia') {
       client.commands.get('trivia').execute(message, args);
