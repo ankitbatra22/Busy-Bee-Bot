@@ -32,14 +32,15 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-  if (message.content.includes('free discord nitro') || message.content.includes('discord nitro')) {
+  if (message.content.includes('free discord nitro') || message.content.includes('free nitro')) {
     const embed = new Discord.MessageEmbed();
                     embed.setColor('#0099ff');
                     embed.setTitle('Spam Message Detected!');
-                    embed.setDescription('Pick a question difficulty');
+                    embed.setDescription('The previous message was deleted as it was detected as spam. If you think there was a mistake please contact a florist.');
                     message.channel.send(embed);
+                    message.delete();
 
-    message.channel.send('The previous message was detected as spam! Any links should be avoided as it may contain a virus');
+    //message.channel.send('The previous message was detected as spam! Any links should be avoided as it may contain a virus');
   }
 
   if(!message.content.startsWith(prefix) || message.author.bot) return;

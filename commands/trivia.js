@@ -27,7 +27,6 @@ module.exports = {
                     message.channel.awaitMessages(filter, { max: 1, time: 30000, errors: ['time'] })
                         .then(collected => {
                             const difficulty = collected.first().content.toLowerCase();
-                            console.log(difficulty);
                             if (difficulty == 'easy' || difficulty == 'medium' || difficulty == 'hard') {
 
                                 arr = ['general', 'books', 'film', 'music', 'theatre', 'tv', 'video_games', 'board_games', 'science', 'computers', 'mathematics', 'mythology', 'sports', 'geography', 'history', 'politics', 'art', 'celebrities', 'animals', 'vehicles', 'comics', 'gadgets', 'anime', 'cartoon'];
@@ -77,7 +76,6 @@ module.exports = {
                                             });
                                     });
                             } else {
-                                console.log("invalid diff")
                                 const embed = new Discord.MessageEmbed();
                                 embed.setColor('#0099ff');
                                 embed.setTitle('Trivia');
@@ -113,3 +111,5 @@ module.exports = {
             });
     }
 }
+
+
