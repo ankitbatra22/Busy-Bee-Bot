@@ -32,7 +32,18 @@ client.once('ready', () => {
 });
 
 client.on('message', message => {
-  if (message.content.includes('free discord nitro') || message.content.includes('free nitro')) {
+
+  const msg = message.content.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+  
+  if (msg.includes('free discord nitro') ||
+      msg.includes('free nitro') || 
+      msg.includes('discord nitro for free') || 
+      msg.includes('httpsdiscodegift') || 
+      msg.includes('httpdiscode') || 
+      msg.includes('free gift') ||
+      msg.includes('httpsdiscode') ||
+      msg.includes('nitro')
+      ) {
     const embed = new Discord.MessageEmbed();
                     embed.setColor('#0099ff');
                     embed.setTitle('Spam Message Detected!');
@@ -40,7 +51,6 @@ client.on('message', message => {
                     message.channel.send(embed);
                     message.delete();
 
-    //message.channel.send('The previous message was detected as spam! Any links should be avoided as it may contain a virus');
   }
 
   if(!message.content.startsWith(prefix) || message.author.bot) return;
@@ -84,7 +94,10 @@ client.on('message', message => {
     } 
     else if (command === 'trivia') {
       client.commands.get('trivia').execute(message, args);
-    } 
+    }
+    else if (command === 'todo') {
+      client.commands.get('todo').execute(message, args);
+    }
     else if (command === 'anime') {
       client.commands.get('anime').execute(message, args);
     }
