@@ -42,7 +42,8 @@ client.on('message', message => {
       msg.includes('httpdiscode') || 
       msg.includes('free gift') ||
       msg.includes('httpsdiscode') ||
-      msg.includes('nitro')
+      msg.includes('nitro') ||
+      msg.includes('who is first')
       ) {
     const embed = new Discord.MessageEmbed();
                     embed.setColor('#0099ff');
